@@ -28,7 +28,7 @@ public class Main {
 				if(temp > max) max = temp;
 			}
 		}
-		int totalTime = 64000000;
+		int totalTime = 64000001;
 		for(int i = max ; i >= min ; i--) {
 			blockCount = block;
 			int temp = totalTime(i);
