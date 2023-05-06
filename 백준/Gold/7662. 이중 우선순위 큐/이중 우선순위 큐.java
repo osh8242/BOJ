@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
 
@@ -15,7 +14,7 @@ class Main{
             int lines = Integer.parseInt(br.readLine());
             for(int line = 1 ; line <= lines ; line++){
                 StringTokenizer st = new StringTokenizer(br.readLine());
-                int command = st.nextToken().charAt(0);
+                char command = st.nextToken().charAt(0);
                 int num = Integer.parseInt(st.nextToken());
                 switch (command){
                     case 'I' : {
@@ -27,7 +26,7 @@ class Main{
                     case 'D' : {
                         if(tm.size() == 0) break;
                         switch (num){
-                            case 1 : {    
+                            case 1 : {
                                 if((int)tm.get(tm.lastKey()) == 1) tm.remove(tm.lastKey());
                                 else tm.put(tm.lastKey(), (int)tm.get(tm.lastKey())-1);
                                 break;
