@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 class Solution {
     
-    public static class Num{
+    class Num{
         int val; // 숫자값
         int maxIndex; // 최대힙에서의 인덱스
         int minIndex; // 최소힙에서의 인덱스
@@ -40,7 +40,7 @@ class Solution {
         return answer;
     }
     
-    public static class DualHeap{
+    class DualHeap{
         ArrayList<Num> maxHeap;
         ArrayList<Num> minHeap;
         DualHeap(){
