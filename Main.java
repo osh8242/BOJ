@@ -48,7 +48,7 @@ class Main{
         System.out.println(sb.toString());
     } // void main()
 
-    public static class DualHeap{
+     static class DualHeap{
         ArrayList<Num> maxHeap;
         ArrayList<Num> minHeap;
         DualHeap(){
@@ -58,7 +58,7 @@ class Main{
             minHeap.add(null); // 인덱스를 1부터 쓰기 위해 null 하나 넣어놓기
         } // constructor
 
-        public void insert(int val){
+        void insert(int val){
             Num num = new Num(val); // val 값을 가지는 Num 클래스 생성
             maxHeap.add(num); // 최대힙에 추가
             minHeap.add(num); // 최소힙에 추가
@@ -84,7 +84,7 @@ class Main{
             num.minIndex = i; // 신규 num의 minHeap 인덱스 기록
         } // void insert()
 
-        public int deleteMin(){
+        int deleteMin(){
             Num minNum = minHeap.get(1); // minHeap의 첫번째 Num 가져오기
             int min = minNum.val; // 첫번째 Num의 val이 최소값
             minHeap.set(1, minHeap.get(minHeap.size()-1)); // minHeap의 가장 마지막 Num을 인덱스 1에 덮어쓰기
@@ -101,7 +101,7 @@ class Main{
             return min; // 최소값 반환
         } // int deleteMin()
 
-        public int deleteMax(){
+        int deleteMax(){
             Num maxNum = maxHeap.get(1); // maxHeap의 첫번째 Num 가져오기
             int max = maxNum.val; // 첫번째 Num의 val이 최대값
             maxHeap.set(1, maxHeap.get(maxHeap.size()-1)); // maxHeap의 가장 마지막 Num을 첫번째 위치로 가져오기
