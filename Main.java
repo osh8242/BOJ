@@ -20,22 +20,23 @@ class Main{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
         int T = Integer.parseInt(br.readLine());
-        DualHeap dh = new DualHeap(); // 이중우선큐 dh
         for(int test = 1 ; test <= T ; test++){
+            DualHeap dh = new DualHeap(); // 이중우선큐 dh
             int lines = Integer.parseInt(br.readLine());
             for(int line = 1 ; line <= lines ; line++){
                 StringTokenizer st = new StringTokenizer(br.readLine());
-                int command = st.nextToken().charAt(0);
+                char command = st.nextToken().charAt(0);
                 int num = Integer.parseInt(st.nextToken());
                 switch (command){
                     case 'I' : dh.insert(num); break; // insert() 호출
                     case 'D' : {
+                        if(dh.maxHeap.size() == 1) break;
                         switch (num){
                             case 1 : {
-                                if(dh.maxHeap.size() > 1) dh.deleteMax(); break; // 값이 있으면 deleteMax() 호출
+                                dh.deleteMax(); break; // 값이 있으면 deleteMax() 호출
                             }
                             case -1 : {
-                                if(dh.minHeap.size() > 1) dh.deleteMin(); break; // 값이 있으면 deleteMin() 호출
+                                dh.deleteMin(); break; // 값이 있으면 deleteMin() 호출
                             }
                         }
                     } break;
@@ -43,12 +44,11 @@ class Main{
             }
             if(dh.maxHeap.size() == 1) sb.append("EMPTY\n"); // 값이 없으면 EMPTY 출력
             else sb.append(dh.maxHeap.get(1).val + " " + dh.minHeap.get(1).val+"\n"); //값이 있으면 최대, 최소 출력
-
         }
         System.out.println(sb.toString());
     } // void main()
 
-     static class DualHeap{
+    static class DualHeap{
         ArrayList<Num> maxHeap;
         ArrayList<Num> minHeap;
         DualHeap(){
