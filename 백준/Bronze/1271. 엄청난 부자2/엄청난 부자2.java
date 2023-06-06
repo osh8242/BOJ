@@ -4,17 +4,17 @@ import java.io.InputStreamReader;
 import java.math.BigInteger;
 import java.util.StringTokenizer;
 
-class Main {
+public class Main {
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        BigInteger n = new BigInteger(st.nextToken());
-        BigInteger m = new BigInteger(st.nextToken());
+        BigInteger money = new BigInteger(st.nextToken());
+        BigInteger num = new BigInteger(st.nextToken());
         StringBuilder sb = new StringBuilder();
-        sb.append(n.divide(m) + "\n" + n.mod(m));
+        sb.append(money.divide(num)+"\n"+money.mod(num));
         System.out.println(sb);
 
-    }
+    }//main(){}
 
-}
+}//class Main{}
