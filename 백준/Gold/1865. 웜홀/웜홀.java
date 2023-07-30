@@ -1,109 +1,90 @@
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.StringTokenizer;
- 
-class Road {
-    int end;
-    int weight;
- 
-    Road(int end, int weight) {
-        this.end = end;
-        this.weight = weight;
+
+class Main {
+
+    static class Node {
+        int index;
+        int price;
+
+        public Node(int index, int price) {
+            this.index = index;
+            this.price = price;
+        }
     }
-}
- 
-public class Main {
-    static int N, M, W;
-    static int[] dist;
-    static ArrayList<ArrayList<Road>> a;
-    static final int INF = 987654321;
- 
+
+    static ArrayList<Node>[] paths;
+    static int n;
+    static final int INF = 1000000000;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        StringTokenizer st;
- 
-        int TC = Integer.parseInt(br.readLine());
         StringBuilder sb = new StringBuilder();
-        while (TC-- > 0) {
-            st = new StringTokenizer(br.readLine());
-            N = Integer.parseInt(st.nextToken());
-            M = Integer.parseInt(st.nextToken());
-            W = Integer.parseInt(st.nextToken());
- 
-            dist = new int[N + 1];
-            a = new ArrayList<>();
-            for (int i = 0; i <= N; i++) {
-                a.add(new ArrayList<>());
-            }
- 
-            for (int i = 0; i < M + W; i++) {
+        int T = Integer.parseInt(br.readLine());
+        for (int test_case = 1; test_case <= T; test_case++) {
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            n = Integer.parseInt(st.nextToken());
+            int m = Integer.parseInt(st.nextToken());
+            int w = Integer.parseInt(st.nextToken());
+
+            paths = new ArrayList[n + 1];
+            for (int i = 1; i <= n; i++) paths[i] = new ArrayList<>();
+
+            while (m-- > 0) {
                 st = new StringTokenizer(br.readLine());
-                int start = Integer.parseInt(st.nextToken());
-                int end = Integer.parseInt(st.nextToken());
-                int weight = Integer.parseInt(st.nextToken());
- 
-                if (i < M) { // 도로는 양방향 그래프
-                    a.get(start).add(new Road(end, weight));
-                    a.get(end).add(new Road(start, weight));
-                } else { // 웜홀은 단방향 그래프
-                    a.get(start).add(new Road(end, -weight));
-                }
+                int s = Integer.parseInt(st.nextToken());
+                int e = Integer.parseInt(st.nextToken());
+                int t = Integer.parseInt(st.nextToken());
+                paths[s].add(new Node(e, t));
+                paths[e].add(new Node(s, t));
             }
- 
-            sb.append(bellmanFord() ? "YES\n" : "NO\n");
+            while (w-- > 0) {
+                st = new StringTokenizer(br.readLine());
+                int s = Integer.parseInt(st.nextToken());
+                int e = Integer.parseInt(st.nextToken());
+                int t = Integer.parseInt(st.nextToken());
+                paths[s].add(new Node(e, -t));
+            }
+
+            sb.append(Bellman_Ford() ? "YES\n" : "NO\n");
         }
- 
-        bw.write(sb.toString());
-        bw.flush();
-        bw.close();
-        br.close();
+        System.out.println(sb);
     }
- 
-    // 벨만포드 알고리즘
-    public static boolean bellmanFord() {
-        Arrays.fill(dist, INF);
-        dist[1] = 0; // 시작점은 0으로 초기화.
-        boolean update = false;
- 
-        // (정점의 개수 - 1)번 동안 최단거리 초기화 작업을 반복함.
-        for (int i = 1; i < N; i++) {
-            update = false;
- 
-            // 최단거리 초기화.
-            for (int j = 1; j <= N; j++) {
-                for (Road road : a.get(j)) {
-                    if (dist[road.end] > dist[j] + road.weight) {
-                        dist[road.end] = dist[j] + road.weight;
-                        update = true;
+
+    static boolean Bellman_Ford() {
+        int[] totalPrices = new int[n + 1];
+        Arrays.fill(totalPrices, INF);
+        totalPrices[1] = 0;
+        boolean isUpdated = false;
+
+        for (int count = 1; count < n; count++) {
+            isUpdated = false;
+            for (int start = 1; start <= n; start++) {
+                if(totalPrices[start] == Integer.MAX_VALUE) continue;
+                for (Node end : paths[start]) {
+                    if (totalPrices[end.index] > totalPrices[start] + end.price) {
+                        isUpdated = true;
+                        totalPrices[end.index] = totalPrices[start] + end.price;
                     }
                 }
             }
- 
-            // 더 이상 최단거리 초기화가 일어나지 않았을 경우 반복문을 종료.
-            if (!update) {
-                break;
-            }
+            if (!isUpdated) break;
         }
- 
-        // (정점의 개수 - 1)번까지 계속 업데이트가 발생했을 경우
-        // (정점의 개수)번도 업데이트 발생하면 음수 사이클이 일어난 것을 의미함.
-        if (update) {
-            for (int i = 1; i <= N; i++) {
-                for (Road road : a.get(i)) {
-                    if (dist[road.end] > dist[i] + road.weight) {
+
+        if (isUpdated) {
+            for (int start = 1; start <= n; start++) {
+                for (Node end : paths[start]) {
+                    if (totalPrices[end.index] > totalPrices[start] + end.price) {
                         return true;
                     }
                 }
             }
         }
- 
+
         return false;
     }
- 
 }
