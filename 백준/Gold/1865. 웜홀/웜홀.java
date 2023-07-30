@@ -20,6 +20,7 @@ class Main {
     static ArrayList<Node>[] paths;
     static int n;
     static final int INF = 1000000000;
+    static int[] totalPrices;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -56,35 +57,28 @@ class Main {
     }
 
     static boolean Bellman_Ford() {
-        int[] totalPrices = new int[n + 1];
+        totalPrices = new int[n + 1];
         Arrays.fill(totalPrices, INF);
         totalPrices[1] = 0;
         boolean isUpdated = false;
-
         for (int count = 1; count < n; count++) {
-            isUpdated = false;
-            for (int start = 1; start <= n; start++) {
-                if(totalPrices[start] == Integer.MAX_VALUE) continue;
-                for (Node end : paths[start]) {
-                    if (totalPrices[end.index] > totalPrices[start] + end.price) {
-                        isUpdated = true;
-                        totalPrices[end.index] = totalPrices[start] + end.price;
-                    }
-                }
-            }
+             isUpdated = update();
             if (!isUpdated) break;
         }
+        if(isUpdated && update()) return true;
+        return false;
+    }
 
-        if (isUpdated) {
-            for (int start = 1; start <= n; start++) {
-                for (Node end : paths[start]) {
-                    if (totalPrices[end.index] > totalPrices[start] + end.price) {
-                        return true;
-                    }
+    static boolean update(){
+        boolean isUpdated = false;
+        for (int start = 1; start <= n; start++) {
+            for (Node end : paths[start]) {
+                if (totalPrices[end.index] > totalPrices[start] + end.price) {
+                    totalPrices[end.index] = totalPrices[start] + end.price;
+                    isUpdated = true;
                 }
             }
         }
-
-        return false;
+        return isUpdated;
     }
 }
