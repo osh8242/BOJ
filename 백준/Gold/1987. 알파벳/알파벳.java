@@ -13,22 +13,6 @@ class Main {
 
     static boolean[] isVisit = new boolean[26];
 
-    static class Route{
-        int row;
-        int col;
-        int count;
-
-        public Route(int x, int y) {
-            this.row = x;
-            this.col = y;
-            this.count = 0;
-        }
-        public void setPosition(int x, int y){
-            this.row = x;
-            this.col = y;
-        }
-    }
-
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
