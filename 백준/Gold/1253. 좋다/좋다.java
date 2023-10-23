@@ -25,18 +25,13 @@ public class Main {
     static boolean isGoodNumber(int number, int currentIndex) {
         int startIndex = 0;
         int endIndex = N - 1;
-        int sum = nums[startIndex] + nums[endIndex];
         while (startIndex < endIndex) {
             if (nums[startIndex] + nums[endIndex] == number) {
-                if (startIndex != currentIndex && endIndex != currentIndex) {
-                    return true;
-                } else if (startIndex == currentIndex) startIndex++;
+                if (startIndex != currentIndex && endIndex != currentIndex) return true;
+                else if (startIndex == currentIndex) startIndex++;
                 else endIndex--;
-            } else if (nums[startIndex] + nums[endIndex] < number) {
-                startIndex++;
-            } else {
-                endIndex--;
-            }
+            } else if (nums[startIndex] + nums[endIndex] < number) startIndex++;
+            else endIndex--;
         }
         return false;
     }
