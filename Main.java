@@ -1,49 +1,47 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
+import java.util.StringTokenizer;
 
-class Main {
-
-    static class Node{
-        public int value;
-        public int index;
-        public Node pNode;
-        public Node cNodeLeft;
-        public Node cNodeRight;
-        public Node(int value, int index){
-            this.value = value;
-            this.index = index;
-            this.pNode = null;
-            this.cNodeLeft = null;
-            this.cNodeRight = null;
-        }
-        public void setpNode(Node pNode){
-            this.pNode = pNode;
-        }
-        public void setcNodeLeft(Node cNode){
-            this.cNodeLeft = cNode;
-        }
-        public void setcNodeRight(Node cNode){
-            this.cNodeRight = cNode;
-        }
-    }
+public class Main {
+    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    static int[] dnaRef;
+    static int count = 0;
 
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        ArrayList<Node> nodes = new ArrayList<>();
-        int root = Integer.parseInt(br.readLine());
-        int currentIndex = 0;
-        nodes.add(new Node(root, nodes.size()));
-        String line;
-        while((line = br.readLine()) != null){
-            int value = Integer.parseInt(line);
-            Node pNode = nodes.get(currentIndex);
-
-
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int S = Integer.parseInt(st.nextToken());
+        int P = Integer.parseInt(st.nextToken());
+        String dnaString = br.readLine();
+        st = new StringTokenizer(br.readLine());
+        dnaRef = new int[4];
+        for (int i = 0; i < 4; i++) dnaRef[i] = Integer.parseInt(st.nextToken());
+        for (int i = 0; i < dnaString.length() - P + 1; i++) {
+            if (validatePassword(dnaString.substring(i, i + P))) count++;
         }
-        System.out.println("end");
+        System.out.println(count);
+    }
 
+    static boolean validatePassword(String pString) {
+        int[] dnaCount = dnaRef.clone();
+        for (int i = 0; i < pString.length(); i++) {
+            switch (pString.charAt(i)) {
+                case 'A':
+                    dnaCount[0]--;
+                    break;
+                case 'C':
+                    dnaCount[1]--;
+                    break;
+                case 'G':
+                    dnaCount[2]--;
+                    break;
+                case 'T':
+                    dnaCount[3]--;
+                    break;
+            }
+            if (dnaCount[0] <= 0 && dnaCount[1] <= 0 && dnaCount[2] <= 0 && dnaCount[3] <= 0) return true;
+        }
+        return false;
     }
 
 }
