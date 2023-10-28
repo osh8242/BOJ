@@ -19,8 +19,8 @@ public class Main {
             st = new StringTokenizer(br.readLine());
             int x = Integer.parseInt(st.nextToken());
             int y = Integer.parseInt(st.nextToken());
-            if (x >= currentX || y >= currentY) continue;
-            if (y * currentX >= x * currentY) currentY = y;
+            if (x > currentX || y > currentY || x == 0 || y == 0) continue;
+            if (y * currentX > x * currentY) currentY = y;
             else currentX = x;
         }
         System.out.println(currentX * currentY);
