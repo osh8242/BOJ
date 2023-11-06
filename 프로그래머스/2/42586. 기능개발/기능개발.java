@@ -5,10 +5,10 @@ class Solution {
         int length = progresses.length;
         int[] completeDate = new int[length];
         for(int i = 0 ; i < length ; i++){
-            int remainingProgress = 100 - progresses[i];
-            completeDate[i] = remainingProgress % speeds[i] == 0 ? 
-            remainingProgress / speeds[i] : 
-            remainingProgress / speeds[i] + 1;
+            int minDate = (100 - progresses[i]) / speeds[i];
+            completeDate[i] = minDate*speeds[i] + progresses[i] == 100 ? 
+            minDate : 
+            minDate + 1;
         }
         int prev = completeDate[0];
         Stack<Integer> stack = new Stack<>();
@@ -24,10 +24,7 @@ class Solution {
             }
         }
         if(!stack.isEmpty()) list.add(stack.size());        
-        int[] answer = new int[list.size()];
-        for(int i = 0 ; i < list.size() ; i++){
-            answer[i] = list.get(i);
-        }
-        return answer;
+
+        return list.stream().mapToInt(Integer::intValue).toArray();
     }
 }
