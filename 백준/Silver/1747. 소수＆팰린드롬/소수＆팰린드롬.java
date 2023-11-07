@@ -17,7 +17,7 @@ public class Main {
 
     private void solution() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        final int LIMIT = 10000000;
+        final int LIMIT = 1003001;
         int N = Integer.parseInt(br.readLine());
         boolean[] isPrime = new boolean[LIMIT + 1];
         for (int i = 2; i < isPrime.length; i++) {
