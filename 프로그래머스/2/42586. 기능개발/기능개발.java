@@ -5,26 +5,26 @@ class Solution {
         int length = progresses.length;
         int[] completeDate = new int[length];
         for(int i = 0 ; i < length ; i++){
-            int minDate = (100 - progresses[i]) / speeds[i];
-            completeDate[i] = minDate*speeds[i] + progresses[i] == 100 ? 
-            minDate : 
-            minDate + 1;
+            int remaining = 100 - progresses[i];
+            completeDate[i] = remaining % speeds[i] == 0 ? 
+            remaining / speeds[i] : 
+            remaining / speeds[i] + 1;
         }
-        int prev = completeDate[0];
-        Stack<Integer> stack = new Stack<>();
-        stack.push(prev);
+                       
         List<Integer> list = new ArrayList<>();
-        for(int i = 1 ; i < length ; i++){
-            if(prev >= completeDate[i]) stack.push(completeDate[i]);
-            else {
-                list.add(stack.size());
-                stack.clear();
-                stack.push(completeDate[i]);
-                prev = completeDate[i];
+        int index = 0;
+        int count = 1;
+        int deployDate = completeDate[index];
+        while(++index < length){
+            if(deployDate >= completeDate[index]){
+                count++;                
+            } else {
+                list.add(count);
+                deployDate = completeDate[index];
+                count = 1;
             }
         }
-        if(!stack.isEmpty()) list.add(stack.size());        
-
+        list.add(count);
         return list.stream().mapToInt(Integer::intValue).toArray();
     }
 }
