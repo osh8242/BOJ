@@ -48,6 +48,7 @@ public class Main {
             History history = pq.poll();
             int current = history.current;
             int distance = history.distance;
+            if (distance > record[current]) continue;
             for (int next : graph[current]) {
                 if (record[next] > distance + 1) {
                     record[next] = distance + 1;
