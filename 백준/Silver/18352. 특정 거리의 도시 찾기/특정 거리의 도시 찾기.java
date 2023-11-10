@@ -1,10 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.PriorityQueue;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -42,17 +39,17 @@ public class Main {
         int[] record = new int[N + 1];
         Arrays.fill(record, Integer.MAX_VALUE);
         record[start] = 0;
-        PriorityQueue<History> pq = new PriorityQueue<>();
-        pq.add(new History(start, 0));
-        while (!pq.isEmpty()) {
-            History history = pq.poll();
+        Queue<History> que = new LinkedList<>();
+        que.add(new History(start, 0));
+        while (!que.isEmpty()) {
+            History history = que.poll();
             int current = history.current;
             int distance = history.distance;
             if (distance > record[current]) continue;
             for (int next : graph[current]) {
                 if (record[next] > distance + 1) {
                     record[next] = distance + 1;
-                    pq.add(new History(next, distance + 1));
+                    que.add(new History(next, distance + 1));
                 }
             }
         }
@@ -63,18 +60,13 @@ public class Main {
         new Main().solution();
     }
 
-    class History implements Comparable<History> {
+    class History {
         private int current;
         private int distance;
 
         public History(int current, int distance) {
             this.current = current;
             this.distance = distance;
-        }
-
-        @Override
-        public int compareTo(History o) {
-            return this.distance - o.distance;
         }
     }
 
