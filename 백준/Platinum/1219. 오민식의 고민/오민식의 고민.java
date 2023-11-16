@@ -56,7 +56,7 @@ public class Main {
         if (record[E] == INF) {
             System.out.println("gg");
         } else {
-            for (int count = 0; count < 50; count++) {
+            for (int count = 0; count < N; count++) {
                 for (int i = 0; i < N; i++) {
                     for (Path path : paths[i]) {
                         if (record[path.start] == INF) continue;
