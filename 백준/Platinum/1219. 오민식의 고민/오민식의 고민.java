@@ -2,6 +2,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -42,12 +44,17 @@ public class Main {
         for (int i = 0; i < N; i++) record[i] = INF;
         record[S] = -earnings[S];
 
-        for (int count = 1; count < N; count++) {
+        Queue<Integer> cycleStart = new LinkedList<>();
+        for (int count = 1; count <= N; count++) {
             for (int i = 0; i < N; i++) {
                 for (Path path : paths[i]) {
                     if (record[path.start] == INF) continue;
                     long newCost = record[path.start] + path.cost;
                     if (record[path.end] > newCost) {
+                        if (count == N) {
+                            cycleStart.offer(path.start);
+                            continue;
+                        }
                         record[path.end] = newCost;
                     }
                 }
@@ -56,22 +63,29 @@ public class Main {
         if (record[E] == INF) {
             System.out.println("gg");
         } else {
-            for (int count = 0; count < N; count++) {
-                for (int i = 0; i < N; i++) {
-                    for (Path path : paths[i]) {
-                        if (record[path.start] == INF) continue;
-                        if (record[path.start] == -INF) {
-                            record[path.end] = -INF;
-                        }
-                        long newCost = record[path.start] + path.cost;
-                        if (record[path.end] > newCost) {
-                            record[path.end] = -INF;
+            boolean isCycle = false;
+            boolean[] isVisited = new boolean[N];
+            while (!cycleStart.isEmpty()) {
+                int start = cycleStart.poll();
+                if (isVisited[start]) continue;
+                Queue<Integer> bfsQue = new LinkedList<>();
+                bfsQue.offer(start);
+                while (!bfsQue.isEmpty()) {
+                    int current = bfsQue.poll();
+                    if (isVisited[current]) continue;
+                    if (current == E) {
+                        isCycle = true;
+                        break;
+                    }
+                    isVisited[current] = true;
+                    for (Path path : paths[current]) {
+                        if (!isVisited[path.end]) {
+                            bfsQue.offer(path.end);
                         }
                     }
                 }
             }
-
-            if (record[E] == -INF) System.out.println("Gee");
+            if (isCycle) System.out.println("Gee");
             else System.out.println(-record[E]);
         }
 
