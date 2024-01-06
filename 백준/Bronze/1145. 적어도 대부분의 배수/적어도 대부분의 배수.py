@@ -1,17 +1,23 @@
 import sys
+from itertools import combinations
 
 
-def readline():
-    return sys.stdin.readline().strip()
+def getGCD(x, y):
+    while y > 0:
+        x, y = y, x % y
+    return x
 
 
-nums = sorted(list(map(int, readline().split())))
-index = nums[2]
-for i in range(nums[2], nums[0] * nums[1] * nums[2] + 1):
-    find = False
-    if sum(i % nums[j] == 0 for j in range(5)) >= 3:
-        find = True
-    if find:
-        print(i)
-        break
+def getLCM(x, y):
+    return x * y // getGCD(x, y)
 
+
+input = sys.stdin.readline
+nums = list(map(int, input().split()))
+combi = list(combinations(nums, 3))
+abcLCM = sys.maxsize
+for comb in combi:
+    a, b, c = comb
+    abLCM = getLCM(a, b)
+    abcLCM = min(getLCM(abLCM, c), abcLCM)
+print(abcLCM)
