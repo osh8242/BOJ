@@ -16,8 +16,4 @@ for _ in range(T):
         q3 += 1
     else:
         q4 += 1
-print("Q1:", q1)
-print("Q2:", q2)
-print("Q3:", q3)
-print("Q4:", q4)
-print("AXIS:", axis)
+print("Q1:", q1, "\nQ2:", q2, "\nQ3:", q3, "\nQ4:", q4, "\nAXIS:", axis)
