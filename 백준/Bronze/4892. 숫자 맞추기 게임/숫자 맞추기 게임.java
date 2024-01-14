@@ -11,14 +11,10 @@ class Main {
         while (true) {
             int N = Integer.parseInt(br.readLine());
             if (N == 0) break;
-
             sb.append(test_case++).append(". ");
-
             boolean isEven = N % 2 ==0;
             sb.append(isEven ? "even" : "odd").append(" ");
-
-            if(!isEven) N--;
-            sb.append(N/2).append("\n");
+            sb.append(isEven ? N/2 : --N/2).append("\n");
         }
         System.out.println(sb);
     }
