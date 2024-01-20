@@ -10,24 +10,22 @@ class Main {
         int T = Integer.parseInt(br.readLine());
         while (T-- > 0) {
             br.readLine();
-            StringTokenizer st = new StringTokenizer(br.readLine());
-            int N = Integer.parseInt(st.nextToken());
-            int M = Integer.parseInt(st.nextToken());
+            String[] input = br.readLine().split(" ");
+            int N = Integer.parseInt(input[0]);
+            int M = Integer.parseInt(input[1]);
             int maxPower = -1;
             char winner = 'S';
-            st = new StringTokenizer(br.readLine());
-            while(st.hasMoreTokens()){
-                int power = Integer.parseInt(st.nextToken());
-                if(power > maxPower) {
-                    maxPower = power;
-                }
+            input = br.readLine().split(" ");
+            for (String s : input) {
+                int power = Integer.parseInt(s);
+                maxPower = Math.max(power, maxPower);
             }
-            st = new StringTokenizer(br.readLine());
-            while (st.hasMoreTokens()) {
-                int power = Integer.parseInt(st.nextToken());
-                if(power > maxPower){
-                    maxPower = power;
+            input = br.readLine().split(" ");
+            for (String s : input) {
+                int power = Integer.parseInt(s);
+                if (power > maxPower) {
                     winner = 'B';
+                    break;
                 }
             }
             sb.append(winner).append("\n");
