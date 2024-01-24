@@ -1,26 +1,27 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
 
 class Main {
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
-        String line = "";
-        while (true) {
-            line = br.readLine();
-            if (line.charAt(0) == '#') break;
-            char[] charArr = line.toCharArray();
-            int index = 1;
-            int answer = 0;
-            for (char ch : charArr) {
-                if (ch != ' ') answer += index * (ch - 64);
-                index++;
-            }
-            sb.append(answer).append("\n");
+        int N = Integer.parseInt(br.readLine());
+        Map<Integer, Integer> map = new HashMap<>();
+        String[] input = br.readLine().split(" ");
+        boolean existZero = false;
+        for (int i = 0; i < N; i++) {
+            int num = Integer.parseInt(input[i]);
+            existZero = num == 0 || existZero;
+            map.put(num, map.getOrDefault(num, 0) + 1);
         }
-        System.out.println(sb);
+        int max = 0;
+        for (int num : map.keySet()) {
+            if (num == map.get(num) && num > max) max = num;
+        }
+        System.out.println(max != 0 ? max : existZero ? -1 : 0);
     }
 
 }
