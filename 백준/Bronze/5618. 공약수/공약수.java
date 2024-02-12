@@ -1,10 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
-import java.util.StringTokenizer;
+import java.util.*;
 
 class Main {
     static StringBuilder sb = new StringBuilder();
@@ -38,14 +35,13 @@ class Main {
     }
 
     static void findCommonDivisor(int num) {
-        int sqrt = (int) Math.sqrt(num);
-        for (int i = 1; i <= sqrt; i++) {
+        for (int i = 1; i <= Math.sqrt(num); i++) {
             if (num % i == 0) {
                 fisrtHalf.add(i);
                 lastHalf.push(num / i);
             }
         }
-        if (sqrt * sqrt == num) lastHalf.pop();
+        if (Objects.equals(fisrtHalf.get(fisrtHalf.size() - 1), lastHalf.peek())) lastHalf.pop();
     }
 
 }
