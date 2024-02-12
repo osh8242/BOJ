@@ -2,10 +2,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
+import java.util.TreeSet;
 
 class Main {
     static StringBuilder sb = new StringBuilder();
     static int[] nums;
+    static TreeSet<Integer> answer = new TreeSet<>();
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -18,6 +20,9 @@ class Main {
         int gcd = getGCD(nums[0], nums[1]);
         if (N == 3) gcd = getGCD(gcd, nums[2]);
         findCommonDivisor(gcd);
+        for(Integer num : answer){
+            sb.append(num).append("\n");
+        }
         System.out.println(sb);
     }
 
@@ -27,8 +32,11 @@ class Main {
     }
 
     static void findCommonDivisor(int num) {
-        for (int i = 1; i <= num; i++)
-            if (num % i == 0) sb.append(i).append("\n");
+        for (int i = 1; i <= Math.sqrt(num); i++)
+            if (num % i == 0) {
+                answer.add(i);
+                answer.add(num/i);
+            }
     }
 
 }
