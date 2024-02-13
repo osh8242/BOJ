@@ -6,11 +6,9 @@ class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String input = br.readLine();
-        StringBuilder sb = new StringBuilder();
         int mode = determineMode(input);
         int answer = getDecimalValue(input, mode);
-        sb.append(answer);
-        System.out.println(sb);
+        System.out.println(answer);
     }
 
     static int determineMode(String input) {
