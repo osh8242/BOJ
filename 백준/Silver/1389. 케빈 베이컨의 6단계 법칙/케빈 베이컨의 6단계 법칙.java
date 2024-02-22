@@ -1,69 +1,57 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main {
-
-    public static boolean[] isVisit;
-    public static int n;
-    public static boolean[][] isConnect;
-    public static Queue<int[]> que;
-    public static int distance;
+    static int N;
+    static ArrayList<Integer>[] graph;
+    static int minKebin = Integer.MAX_VALUE;
+    static int minIndex = 0;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
         StringTokenizer st = new StringTokenizer(br.readLine());
-        n = Integer.parseInt(st.nextToken());
+        N = Integer.parseInt(st.nextToken());
         int m = Integer.parseInt(st.nextToken());
-        isConnect = new boolean[n+1][n+1];
-        for(int line = 1 ; line <= m ; line++){
+        graph = new ArrayList[N + 1];
+        for (int i = 1; i <= N; i++) graph[i] = new ArrayList<>();
+        for (int line = 1; line <= m; line++) {
             st = new StringTokenizer(br.readLine());
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
-            isConnect[a][b] = true;
-            isConnect[b][a] = true;
+            graph[a].add(b);
+            graph[b].add(a);
         }
-        que = new LinkedList<>();
-        int man = -1;
-        int kebin = n*n;
-        for(int v = 1 ; v <= n ; v++){
-            int temp_kebin = 0;
-            que.clear();
-            for( int goal = 1 ; goal <= n ; goal++){
-                if(v==goal) continue;
-                distance = n;
-                isVisit = new boolean[n+1];
-                que.add(new int[]{v,0});
-                while(que.size()>0){
-                    int[] temp = que.poll();
-                    bfs(temp[0],goal,temp[1]);
-                }
-                temp_kebin += distance;
-            }
-            if(kebin > temp_kebin) {
-                kebin = temp_kebin;
-                man = v;
+
+        for (int v = 1; v <= N; v++) {
+            int kebin = bfs(v);
+            if (kebin < minKebin) {
+                minKebin = kebin;
+                minIndex = v;
             }
         }
-        System.out.println(man);
+        System.out.println(minIndex);
     }
 
-    public static int bfs(int v, int goal, int distance){
-        if(v==goal && isVisit[v] == false) {
-            Main.distance = distance;
-        }
-        if(distance >= Main.distance) return 0;
-        if(isVisit[v] == false) isVisit[v] = true;
-        distance++;
-        for(int i = 1 ; i <= n ; i++){
-            if(isConnect[v][i] == true && !isVisit[i]){
-                que.add(new int[]{i, distance});
+    static int bfs(int v) {
+        int kebin = 0;
+        Queue<Integer> que = new LinkedList<>();
+        int[] isVisit = new int[N + 1];
+        que.add(v);
+        while (!que.isEmpty()) {
+            int current = que.poll();
+            for (int next : graph[current]) {
+                if (isVisit[next] != 0) continue;
+                isVisit[next] = isVisit[current] + 1;
+                kebin += isVisit[next];
+                que.add(next);
             }
         }
-        return -1;
+        return kebin;
     }
+
 }
