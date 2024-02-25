@@ -7,9 +7,9 @@ import java.util.StringTokenizer;
 
 public class Main {
     static int T, L;
-    static int[] rowOffsets = {-1, 1, -2, -2, -1, 1, 2, 2};
-    static int[] colOffsets = {-2, -2, -1, 1, 2, 2, -1, 1};
-    static int[][] map;
+    static int[] rowOffsets = {-1,1,-2,-2,-1,1,2,2};
+    static int[] colOffsets = {-2,-2,-1,1,2,2,-1,1};
+    static boolean[][] isVisit;
     static Position endP;
 
     public static void main(String[] args) throws IOException {
@@ -18,11 +18,11 @@ public class Main {
         T = Integer.parseInt(br.readLine());
         while (T-- > 0) {
             L = Integer.parseInt(br.readLine());
-            map = new int[L][L];
+            isVisit = new boolean[L][L];
             StringTokenizer st = new StringTokenizer(br.readLine());
             int startRow = Integer.parseInt(st.nextToken());
             int startCol = Integer.parseInt(st.nextToken());
-            Position startP = new Position(startRow, startCol);
+            Position startP = new Position(startRow, startCol, 0);
             st = new StringTokenizer(br.readLine());
             int endRow = Integer.parseInt(st.nextToken());
             int endCol = Integer.parseInt(st.nextToken());
@@ -35,20 +35,20 @@ public class Main {
 
     static int getMinMoveCount(Position startP) {
         Queue<Position> que = new LinkedList<>();
+        isVisit[startP.row][startP.col] = true;
         que.offer(startP);
         while (!que.isEmpty()) {
             Position currentP = que.poll();
-            if (currentP.equals(endP)) return map[currentP.row][currentP.col];
+            if (currentP.equals(endP)) return currentP.moveCount;
             for (int i = 0; i < 8; i++) {
                 int nextRow = currentP.row + rowOffsets[i];
                 int nextCol = currentP.col + colOffsets[i];
                 try {
-                    if (map[nextRow][nextCol] == 0) {
-                        map[nextRow][nextCol] = map[currentP.row][currentP.col] + 1;
-                        que.offer(new Position(nextRow, nextCol));
+                    if (!isVisit[nextRow][nextCol]) {
+                        isVisit[nextRow][nextCol] = true;
+                        que.offer(new Position(nextRow, nextCol, currentP.moveCount + 1));
                     }
-                } catch (ArrayIndexOutOfBoundsException ignored) {
-                }
+                } catch(Exception ignored){}
             }
         }
         return 0;
@@ -57,13 +57,23 @@ public class Main {
     static class Position {
         private final int row;
         private final int col;
+        private int moveCount;
+
         public Position(int row, int col) {
             this.row = row;
             this.col = col;
         }
-        public boolean equals(Position target) {
+
+        public Position(int row, int col, int moveCount) {
+            this.row = row;
+            this.col = col;
+            this.moveCount = moveCount;
+        }
+
+        public boolean equals(Position target){
             return this.row == target.row && this.col == target.col;
         }
+
     }
 
 }
