@@ -9,9 +9,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
-        String equation = br.readLine();
 
-        for (char ch : equation.toCharArray()) {
+        for (char ch : br.readLine().toCharArray()) {
             switch (ch) {
                 case '+':
                 case '-':
