@@ -2,26 +2,18 @@ import sys
 
 
 def readline():
-    return int(sys.stdin.readline().strip())
+    return sys.stdin.readline().strip()
 
 
-heights = []
-for _ in range(9):
-    height = readline()
-    heights.append(height)
-
-residue = sum(heights) - 100
-
-found = False
-for i in range(8):
-    if found:
-        break
-    for j in range(i + 1, 9):
-        if heights[i] + heights[j] == residue:
-            heights.pop(j)
-            heights.pop(i)
-            found = True
-            break
-
-for height in sorted(heights):
-    print(height)
+T = int(readline())
+for _ in range(T):
+    message = readline()
+    code = list(readline())
+    answer = []
+    for ch in message:
+        value = ord(ch)
+        if value > 64:
+            answer.append(code[value - 65])
+        else:
+            answer.append(ch)
+    print(''.join(answer))
