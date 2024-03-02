@@ -16,7 +16,7 @@ public class Main {
                 case '-':
                 case '*':
                 case '/':
-                    while (!stack.isEmpty() && !isPreceding(ch, stack.peek())) {
+                    while (!stack.isEmpty() && getPriority(ch) <= getPriority(stack.peek())) {
                         sb.append(stack.pop());
                     }
                     stack.add(ch);
@@ -37,10 +37,6 @@ public class Main {
         while (!stack.isEmpty()) sb.append(stack.pop());
         System.out.println(sb);
 
-    }
-
-    static boolean isPreceding(char ch, char target) {
-        return getPriority(ch) > getPriority(target);
     }
 
     static int getPriority(char ch) {
