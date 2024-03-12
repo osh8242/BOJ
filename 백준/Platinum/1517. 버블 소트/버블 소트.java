@@ -28,15 +28,23 @@ public class Main {
             int left = start;
             int right = middle + 1;
             int index = start;
-            while (left <= middle || right <= end) {
-                if (right > end || (left <= middle && array[left] < array[right])) {
+            while (left <= middle && right <= end) {
+                if (array[left] <= array[right]) {
                     temp[index++] = array[left++];
                 } else {
-                    if(array[right] != array[index]) swapCount += right - index;
+                    swapCount += (middle - left + 1);
                     temp[index++] = array[right++];
                 }
             }
-            for (int i = start; i <= end; i++) array[i] = temp[i];
+            while (left <= middle) {
+                temp[index++] = array[left++];
+            }
+            while (right <= end) {
+                temp[index++] = array[right++];
+            }
+            if (end - start > 0) {
+                System.arraycopy(temp, start, array, start, end + 1 - start);
+            }
         }
     }
 
