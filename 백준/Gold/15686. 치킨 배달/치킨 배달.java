@@ -6,10 +6,9 @@ import java.util.*;
 public class Main {
     static int N, M;
     static int[][] map;
-    static int[][] tempMap;
     static ArrayList<Node> chicken = new ArrayList<>();
     static ArrayList<Node> house = new ArrayList<>();
-    static PriorityQueue<Node>[] distance;
+    static Node[][] distance;
 
     static int minChickenDistance = Integer.MAX_VALUE;
     static int[] dr = {1, -1, 0, 0};
@@ -29,12 +28,13 @@ public class Main {
                 if (map[i][j] == 2) chicken.add(new Node(i, j, 0));
             }
         }
-        distance = new PriorityQueue[house.size()];
-        for (int i = 0; i < house.size(); i++) {
-            distance[i] = new PriorityQueue<>();
-        }
+        distance = new Node[house.size()][chicken.size()];
 
         findDistances();
+        for (int i = 0; i < house.size(); i++) {
+            Arrays.sort(distance[i]);
+        }
+
         setChickenStore(1, 1, 0);
         System.out.println(minChickenDistance);
     }
@@ -52,7 +52,7 @@ public class Main {
                 isVisit[N + 1][i] = true;
                 isVisit[i][N + 1] = true;
             }
-
+            int chickenIndex = 0;
             while (!que.isEmpty()) {
                 Node node = que.poll();
                 for (int i = 0; i < 4; i++) {
@@ -64,7 +64,7 @@ public class Main {
                             que.offer(new Node(nextRow, nextCol, node.distance + 1));
                         } else if (map[nextRow][nextCol] == 2) {
                             isVisit[nextRow][nextCol] = true;
-                            distance[index].offer(new Node(nextRow, nextCol, node.distance + 1));
+                            distance[index][chickenIndex++] = new Node(nextRow, nextCol, node.distance + 1);
                             que.offer(new Node(nextRow, nextCol, node.distance + 1));
                         }
                     }
@@ -96,20 +96,13 @@ public class Main {
     static int calculateTotalDistance() {
         int totalChickenDistance = 0;
         for (int i = 0; i < distance.length; i++) {
-            PriorityQueue<Node> que = distance[i];
-            PriorityQueue<Node> tempQue = new PriorityQueue<>();
-            while(true) {
-                Node node = que.poll();
-                boolean isExist = false;
-                if (map[node.row][node.col] == 3) {
+            Node[] chicken = distance[i];
+            for(int j = 0 ; j < chicken.length ; j++){
+                Node node = chicken[j];
+                if(map[node.row][node.col] == 3){
                     totalChickenDistance += node.distance;
-                    isExist = true;
+                    break;
                 }
-                tempQue.offer(node);
-                if (isExist) break;
-            }
-            while(!tempQue.isEmpty()){
-                que.offer(tempQue.poll());
             }
         }
         return totalChickenDistance;
@@ -118,7 +111,7 @@ public class Main {
     static class Node implements Comparable<Node> {
         private final int row;
         private final int col;
-        private int distance;
+        private final int distance;
 
         public Node(int row, int col, int distance) {
             this.row = row;
