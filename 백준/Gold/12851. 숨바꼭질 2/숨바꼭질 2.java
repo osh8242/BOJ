@@ -30,7 +30,7 @@ public class Main {
                 else if (count > minCount) break;
                 else continue;
             }
-            if (idx == K && !find) {
+            if (!find && idx == K) {
                 find = true;
                 minCount = count;
                 answer++;
