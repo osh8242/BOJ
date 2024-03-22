@@ -14,8 +14,8 @@ public class Main {
             StringTokenizer st = new StringTokenizer(br.readLine());
             int ni = Integer.parseInt(st.nextToken());
             int si = Integer.parseInt(st.nextToken());
-            int expectedValue = (int) ((si * getPow(ni, MOD-2)) % MOD);
-            answer = (answer + expectedValue) % MOD;
+            int e = (int) ((si * getPow(ni, MOD-2)) % MOD);
+            answer = (answer + e) % MOD;
         }
         System.out.println(answer);
     }
@@ -27,5 +27,4 @@ public class Main {
         if (p % 2 == 1) result *= b;
         return result % MOD;
     }
-
 }
