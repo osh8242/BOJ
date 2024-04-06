@@ -10,8 +10,8 @@ public class Main {
         StringBuilder sb = new StringBuilder();
         int T = Integer.parseInt(br.readLine());
         while (T-- > 0) {
-            BigInteger bigInteger = new BigInteger(br.readLine());
-            sb.append(bigInteger.mod(BigInteger.TWO).equals(BigInteger.ZERO) ? "even" : "odd").append("\n");
+            String line = br.readLine();
+            sb.append(line.charAt(line.length()-1) % 2 == 0 ? "even" : "odd").append("\n");
         }
         System.out.println(sb);
     }
