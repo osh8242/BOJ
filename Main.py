@@ -1,19 +1,3 @@
-import sys
-
-
-def readline():
-    return sys.stdin.readline().strip()
-
-
-T = int(readline())
-for _ in range(T):
-    message = readline()
-    code = list(readline())
-    answer = []
-    for ch in message:
-        value = ord(ch)
-        if value > 64:
-            answer.append(code[value - 65])
-        else:
-            answer.append(ch)
-    print(''.join(answer))
+N = int(input())
+q = N // 2 + 1
+print(q * q if N % 2 == 0 else q * (q+1))
