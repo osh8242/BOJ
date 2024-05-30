@@ -1,2 +1,2 @@
 k = int(input())
-print(format(2 ** k - 1 << (k - 1), 'b'))
+print('1' * k + '0' * (k - 1))
