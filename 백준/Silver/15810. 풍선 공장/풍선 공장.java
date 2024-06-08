@@ -23,7 +23,12 @@ public class Main {
 
     static long binarySearch() {
         long left = 1;
-        long right = (long) Arrays.stream(times).max().getAsInt() * M;
+        long right = times[0];
+        for(int i = 1 ; i< N ; i++){
+            right = Math.max(right, times[i]);
+        }
+        right *= M;
+        
         long result = right;
         while (left <= right) {
             long mid = left + (right - left) / 2;
