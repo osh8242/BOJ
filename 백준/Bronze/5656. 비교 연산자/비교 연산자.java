@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.StringTokenizer;
 
 public class Main {
 
@@ -9,16 +8,17 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
         int index = 1;
-        while(true){
-            StringTokenizer st = new StringTokenizer(br.readLine());
-            int a = Integer.parseInt(st.nextToken());
-            String op = st.nextToken();
-            int b = Integer.parseInt(st.nextToken());
+        String line;
+        while((line = br.readLine()) != null){
+            String[] inputs = line.split(" ");
+            int a = Integer.parseInt(inputs[0]);
+            String op = inputs[1];
+            int b = Integer.parseInt(inputs[2]);
             if(op.equals("E")) break;
-            boolean isRight = discriminate(a,op,b);
-            sb.append(String.format("Case %d: %s", index++, isRight)).append("\n");
+            boolean isRight = discriminate(a, op, b);
+            sb.append("Case ").append(index++).append(": ").append(isRight).append("\n");
         }
-        System.out.println(sb);
+        System.out.print(sb.toString());
     }
 
     static boolean discriminate(int a, String op, int b){
@@ -32,5 +32,4 @@ public class Main {
             default -> false;
         };
     }
-
 }
