@@ -20,8 +20,8 @@ public class Main {
             for (int i = 0; i < N; i++) {
                 StringTokenizer st = new StringTokenizer(br.readLine());
                 String fruit = st.nextToken();
+                if (fruitCounts.get(fruit) > 5) continue;
                 int count = Integer.parseInt(st.nextToken());
-
                 fruitCounts.put(fruit, fruitCounts.get(fruit) + count);
             }
 
