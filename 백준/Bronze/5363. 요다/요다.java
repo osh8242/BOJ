@@ -14,7 +14,8 @@ public class Main {
                 input = input.substring(input.indexOf(" ") + 1);
                 String word2 = input.substring(0, input.indexOf(" ") + 1);
                 input = input.substring(input.indexOf(" ") + 1);
-                bw.write(input + " " + word1 + word2 + "\n");
+                StringBuilder sb = new StringBuilder(input).append(" ").append(word1).append(word2).append("\n");
+                bw.write(sb.toString());
             }
             bw.flush();
         }
