@@ -1,8 +1,5 @@
 import java.io.*;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.StringTokenizer;
-import java.util.TreeSet;
+import java.util.*;
 
 public class Main {
 
@@ -22,15 +19,16 @@ public class Main {
         for (int i = 0; i < B; i++) {
             setB.add(Integer.parseInt(st.nextToken()));
         }
-        Set<Integer> set = new TreeSet<>();
+        List<Integer> list = new ArrayList<>();
         for (int i = 0; i < A; i++) {
             boolean b = setB.add(arrA[i]);
-            if (b) set.add(arrA[i]);
+            if (b) list.add(arrA[i]);
         }
-        bw.write(String.valueOf(set.size()));
+        bw.write(String.valueOf(list.size()));
         bw.newLine();
-        if (!set.isEmpty()) {
-            for (Integer i : set) {
+        if (!list.isEmpty()) {
+            Collections.sort(list);
+            for (Integer i : list) {
                 bw.write(String.valueOf(i));
                 bw.write(" ");
             }
