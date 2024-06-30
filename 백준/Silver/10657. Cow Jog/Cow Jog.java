@@ -26,18 +26,13 @@ public class Main {
         System.out.println(groupCount);
     }
 
-    static class Cow implements Comparable<Cow> {
+    static class Cow {
         int position;
         int speed;
 
         public Cow(int position, int speed) {
             this.position = position;
             this.speed = speed;
-        }
-
-        @Override
-        public int compareTo(Cow o) {
-            return this.position - o.position;
         }
     }
 }
