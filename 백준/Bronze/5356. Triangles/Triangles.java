@@ -21,13 +21,9 @@ public class Main {
 
     static void appendTriangle(int N, char ch, StringBuilder sb) {
         for (int i = 1; i <= N ; i++) {
-            for (int j = 1; j <= i; j++) {
-                sb.append(ch);
-            }
-            sb.append("\n");
+            sb.append(String.valueOf(ch).repeat(i)).append("\n");            
             ch += (char) (ch == 90 ? -25 : 1);
         }
     }
-
-
+    
 }
