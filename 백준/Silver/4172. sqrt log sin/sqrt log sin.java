@@ -1,4 +1,8 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,21 +12,27 @@ public class Main {
     private static final int MAX_I = 1000000;
     private static Map<Integer, Integer> memo = new HashMap<>();
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringBuilder output = new StringBuilder();
         
         // 초기값 설정
         memo.put(0, 1);
-        
+
         while (true) {
-            int i = scanner.nextInt();
+            String line = reader.readLine();
+            int i = Integer.parseInt(line.trim());
             if (i == -1) {
                 break;
             }
-            System.out.println(getX(i));
+            output.append(getX(i)).append("\n");
         }
         
-        scanner.close();
+        writer.write(output.toString());
+        writer.flush();
+        reader.close();
+        writer.close();
     }
     
     private static int getX(int i) {
