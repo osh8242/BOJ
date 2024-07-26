@@ -1,19 +1,19 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Arrays;
+import java.io.*;
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int N = Integer.parseInt(br.readLine());
-        int[] piles = new int[N];
-        for (int i = 0; i < N; i++) piles[i] = Integer.parseInt(br.readLine());
-        int sum = Arrays.stream(piles).sum();
-        int avg = sum / N;
-        int answer = Arrays.stream(piles).map(e -> avg > e ? avg - e : 0).sum();
-        System.out.println(answer);
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out))) {
+            StringBuilder sb = new StringBuilder();
+
+            int N = Integer.parseInt(br.readLine());
+            int count = 0;
+            for (int i = 0; i < 3; i++) if (br.readLine().contains("7")) count++;
+
+            bw.write(count == 3 ? "777" : "0");
+            bw.flush();
+        }
     }
 
 }
