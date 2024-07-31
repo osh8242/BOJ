@@ -1,7 +1,4 @@
 import java.io.*;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.StringTokenizer;
 
 public class Main {
 
@@ -11,13 +8,17 @@ public class Main {
         StringBuilder sb = new StringBuilder();
 
         int N = Integer.parseInt(br.readLine());
-        Set<Integer> set = new HashSet<>();
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < N; i++) {
-            set.add(Integer.parseInt(st.nextToken()));
+        int[] menu = new int[N + 1];
+        for (int i = 1; i <= N; i++) {
+            menu[i] = Integer.parseInt(br.readLine());
+        }
+        int M = Integer.parseInt(br.readLine());
+        int sum = 0;
+        for (int i = 1; i <= M; i++) {
+            sum += menu[Integer.parseInt(br.readLine())];
         }
 
-        bw.write(String.valueOf(set.size()));
+        bw.write(String.valueOf(sum));
         bw.flush();
     }
 
