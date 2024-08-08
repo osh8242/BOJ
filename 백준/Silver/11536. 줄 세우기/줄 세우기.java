@@ -15,10 +15,10 @@ public class Main {
         boolean isDesc = true;
         
         for (int i = 1; i < N; i++) {
-            if (names[i].compareTo(names[i-1]) < 0) {
+            if (isAsc && names[i].compareTo(names[i-1]) < 0) {
                 isAsc = false;
             }
-            if (names[i].compareTo(names[i-1]) > 0) {
+            if (isDesc && names[i].compareTo(names[i-1]) > 0) {
                 isDesc = false;
             }
             if (!isAsc && !isDesc) {
