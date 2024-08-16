@@ -6,6 +6,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringBuilder sb = new StringBuilder();
 
         int T = Integer.parseInt(br.readLine());
         for (int i = 1; i <= T; i++) {
@@ -28,11 +29,12 @@ public class Main {
 
             double area = (maxX - minX) * (maxY - minY);
             double perimeter = 2 * ((maxX - minX) + (maxY - minY));
-            bw.write(String.format("Case %d: Area %f, Perimeter %f", i, area, perimeter));
-            bw.newLine();
+
+            sb.append("Case ").append(i).append(": Area ").append(area)
+              .append(", Perimeter ").append(perimeter).append("\n");
         }
 
+        bw.write(sb.toString());
         bw.flush();
     }
-
 }
