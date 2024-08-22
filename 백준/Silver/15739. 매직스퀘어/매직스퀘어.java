@@ -1,10 +1,13 @@
 import java.io.*;
 import java.util.HashSet;
+import java.util.Set;
 import java.util.StringTokenizer;
+import java.util.TreeSet;
 
 public class Main {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+    static StringBuilder sb = new StringBuilder();
     static int[][] matrix;
     static int N;
     static int sum;
@@ -13,24 +16,18 @@ public class Main {
         N = Integer.parseInt(br.readLine());
         sum = N * (N * N + 1) / 2;
         matrix = new int[N][N];
-        HashSet<Integer> set = new HashSet<>();
-        
-        // 행렬 입력 및 중복 체크
+        Set<Integer> set = new HashSet<>();
+        boolean isDuplicate = false;
         for (int i = 0; i < N; i++) {
             StringTokenizer st = new StringTokenizer(br.readLine());
             for (int j = 0; j < N; j++) {
-                int value = Integer.parseInt(st.nextToken());
-                matrix[i][j] = value;
-                if (value < 1 || value > N * N || !set.add(value)) {
-                    bw.write("FALSE");
-                    bw.flush();
-                    return;
-                }
+                matrix[i][j] = Integer.parseInt(st.nextToken());
+                isDuplicate = !set.add(matrix[i][j]);
+                if (isDuplicate) break; 
             }
         }
 
-        // 행, 열, 대각선 체크
-        if (checkRow() && checkCol() && checkDiagonal1() && checkDiagonal2()) {
+        if (!isDuplicate && checkRow() && checkCol() && checkDiagonal1() && checkDiagonal2()) {
             bw.write("TRUE");
         } else {
             bw.write("FALSE");
@@ -76,4 +73,5 @@ public class Main {
         }
         return temp == sum;
     }
+
 }
