@@ -1,19 +1,24 @@
 import java.io.*;
 
 public class Main {
+    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+    static long N, answer;
 
-	public static char[] documents;
-
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		int n = Integer.parseInt(br.readLine());
-		for (int i = 0; i < 5; i++) {
-			if ((n - 3 * i) % 5 == 0 && (n - 3 * i) >= 0) {
-				System.out.println((n - 3 * i) / 5 + i);
-				return;
-			}
-		}
-		System.out.println("-1");
-	}
+    public static void main(String[] args) throws IOException {
+        N = Long.parseLong(br.readLine());
+        answer = -1;
+        long q = N / 5;
+        int r = (int) N % 5;
+        switch (r) {
+            case 0 -> answer = q;
+            case 1 -> {if (q > 0) answer = q + 1;}
+            case 2 -> {if (q > 1) answer = q + 2;}
+            case 3 -> answer = q + 1;
+            case 4 -> {if (q > 0) answer = q + 2;}
+        }
+        bw.write(Long.toString(answer));
+        bw.flush();
+    }
 
 }
