@@ -22,9 +22,7 @@ public class Main {
 
         long pairCount = 0;
         for (int count : freqMap.values()) {
-            if (count > 1) {
-                pairCount += (long) count * (count - 1) / 2;
-            }
+            pairCount += (long) count * (count - 1) / 2;
         }
 
         bw.write(String.valueOf(pairCount));
