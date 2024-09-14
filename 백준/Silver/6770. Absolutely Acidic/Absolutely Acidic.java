@@ -45,7 +45,7 @@ public class Main {
 
         @Override
         public int compareTo(Node o) {
-            return this.count == o.count ? this.value - o.value : this.count - o.count;
+            return this.count - o.count;
         }
     }
 
