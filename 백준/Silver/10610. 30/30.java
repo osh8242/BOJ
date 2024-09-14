@@ -16,7 +16,7 @@ public class Main {
         else {
             Arrays.sort(nums);
             if (nums[0] != '0') bw.write(Integer.toString(-1));
-            else bw.write(sb.append(new String(nums)).reverse().toString());
+            else bw.write(sb.append(nums).reverse().toString());
         }
         bw.flush();
     }
