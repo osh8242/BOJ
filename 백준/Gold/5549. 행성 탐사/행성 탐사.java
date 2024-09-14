@@ -56,9 +56,15 @@ public class Main {
 
         void add(char type) {
             switch (type) {
-                case 'J' -> j++;
-                case 'O' -> o++;
-                case 'I' -> i++;
+                case 'J':
+                    j++;
+                    break;
+                case 'O':
+                    o++;
+                    break;
+                case 'I':
+                    i++;
+                    break;
             }
         }
 
