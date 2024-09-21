@@ -19,12 +19,14 @@ public class Main {
 
         for (int i = 0; i < R * A; i++) {
             for (int j = 0; j < C * B; j++) {
-                boolean evenRow = (i / A) % 2 == 0;
-                boolean evenCol = (j / B) % 2 == 0;
-                board[i][j] = evenRow && evenCol ? 'X' : evenRow ? '.' : evenCol ? '.' : 'X';
+                if (((i / A) + (j / B)) % 2 == 0) {
+                    board[i][j] = 'X';
+                } else {
+                    board[i][j] = '.';
+                }
             }
         }
-
+        
         for (char[] chars : board) {
             sb.append(chars).append('\n');
         }
