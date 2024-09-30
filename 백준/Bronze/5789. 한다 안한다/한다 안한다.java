@@ -14,8 +14,7 @@ public class Main {
             char[] chars = br.readLine().toCharArray();
             boolean doIt = false;
             for (int i = 0; i < chars.length / 2; i++) {
-                if (chars[i] == chars[chars.length - 1 - i]) doIt = true;
-                else doIt = false;
+                doIt = chars[i] == chars[chars.length - 1 - i];
             }
             sb.append(doIt ? "Do-it" : "Do-it-Not").append("\n");
         }
