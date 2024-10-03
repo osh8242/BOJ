@@ -12,8 +12,8 @@ public class Main {
         int A = Integer.parseInt(br.readLine());
         int B = Integer.parseInt(br.readLine());
 
-        int C = A + B;
-        while (C > 12) C -= 12;
+        int C = (A + B) % 12;
+        if (C == 0) C = 12;
         sb.append(C);
 
         bw.write(sb.toString());
