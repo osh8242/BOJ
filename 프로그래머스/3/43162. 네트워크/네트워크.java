@@ -1,14 +1,14 @@
 class Solution {
     public int solution(int n, int[][] computers) {
-        Count count = new Count();
+        int answer = 0;
         boolean[] isVisit = new boolean[computers.length];
         for (int i = 0; i < computers.length; i++) {
             if (!isVisit[i]) {
-                count.value++;
+                answer++;
                 dfs(i, computers, isVisit);
             }
         }
-        return count.value;
+        return answer;
     }
 
     void dfs(int current, int[][] computers, boolean[] isVisit) {
@@ -20,8 +20,4 @@ class Solution {
             }
         }
     }
-}
-
-class Count {
-    int value = 0;
 }
