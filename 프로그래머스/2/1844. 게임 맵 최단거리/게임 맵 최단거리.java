@@ -23,10 +23,11 @@ class Solution {
                 break;
             }
             for(int i = 0 ; i < 4 ; i++) {
-                Node next = new Node(current.n + move[i][0], current.m + move[i][1], current.d + 1);
-                if(inBound(next, N, M) && !isVisit[next.n][next.m] && maps[next.n][next.m] == 1) {
-                    isVisit[next.n][next.m] = true;
-                    que.offer(next);
+                int n = current.n + move[i][0];
+                int m = current.m + move[i][1];
+                if(inBound(n, m, N, M) && !isVisit[n][m] && maps[n][m] == 1) {
+                    isVisit[n][m] = true;
+                    que.offer(new Node(n, m, current.d + 1));
                 }
             }
 
@@ -35,8 +36,8 @@ class Solution {
         return answer == 0 ? -1 : answer;
     }
     
-    boolean inBound(Node node, int N, int M) {
-        return node.n >= 0 && node.n < N && node.m >=0 && node.m < M;
+    boolean inBound(int n, int m, int N, int M) {
+        return n >= 0 && n < N && m >=0 && m < M;
     }
 }
 
