@@ -31,11 +31,9 @@ class Main {
     }
 
     static Box findFittingBox(Item item) {
-        // Iterate over each box (smallest volume first)
         for (Box box : boxes) {
             if (box.isPackable(item)) return box;
         }
-        // No box fits
         return null;
     }
 
@@ -68,7 +66,10 @@ class Box extends Item implements Comparable<Box> {
     }
 
     boolean isPackable(Item item) {
-        return this.order[2] >= item.order[2] && this.order[1] >= item.order[1] && this.order[0] >= item.order[0];
+        for (int i = 0; i < order.length; i++) {
+            if (this.order[i] < item.order[i]) return false;
+        }
+        return true;
     }
 
     @Override
