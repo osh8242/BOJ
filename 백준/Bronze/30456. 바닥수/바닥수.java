@@ -18,7 +18,7 @@ public class Main {
 
     private static StringBuilder getResult(int N, int L) {
         StringBuilder result = new StringBuilder();
-        result.append("1".repeat(L - 1));
+        for(int i = 1 ; i < L ; i++ ) result.append("1");
         result.append(N);
         return result;
     }
