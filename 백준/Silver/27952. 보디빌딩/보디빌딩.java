@@ -20,26 +20,27 @@ public class Main {
             B[i] = Integer.parseInt(st.nextToken());
         }
 
-        int weight = 0;
-        int routine = 0;
+        long weight = 0;
+        long count = 0;
         boolean isExhausted = false;
         for (int i = 0; i < N; i++) {
             weight += B[i];
             if (weight < A[i]) {
-                int gap = A[i] - weight;
-                int cancelCount = gap / X;
+                long gap = A[i] - weight;
+                long cancelCount = gap / X;
                 if (gap % X != 0) cancelCount++;
-                if (cancelCount > routine) {
+                if (cancelCount > count) {
                     isExhausted = true;
                     break;
                 }
-                routine -= cancelCount;
+                count -= cancelCount;
                 weight += cancelCount * X;
+            } else {
+                long temp = (weight - A[i]) / X;
+                count += temp;
+                weight -= temp * X;
             }
-            int count = (weight - A[i]) / X;
-            routine += count;
-            weight -= count * X;
         }
-        System.out.println(isExhausted ? -1 : routine);
+        System.out.println(isExhausted ? -1 : count);
     }
 }
