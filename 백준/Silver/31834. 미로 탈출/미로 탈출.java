@@ -14,13 +14,12 @@ public class Main {
             int N = Integer.parseInt(st.nextToken());
             int S = Integer.parseInt(st.nextToken());
             int E = Integer.parseInt(st.nextToken());
-            int answer;
+            int answer = 0;
             if (onBoundary(S, N)) {
-                if (onBoundary(E, N)) answer = 0;
-                else answer = 1;
+                if (!onBoundary(E, N)) answer++;
             } else {
-                if (Math.abs(S - E) == 1) answer = 1;
-                else answer = 2;
+                answer++;
+                if (!(Math.abs(S - E) == 1)) answer++;
             }
             sb.append(answer).append("\n");
         }
