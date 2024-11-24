@@ -22,14 +22,10 @@ public class Main {
         int max = d;
         while (min <= max) {
             int mid = min + (max - min) / 2;
-            if (canLate(d, mid)) min = mid + 1;
+            if (mid + mid * mid <= d) min = mid + 1;
             else max = mid - 1;
         }
         return max;
-    }
-
-    static boolean canLate(int d, int t) {
-        return t + t * t <= d;
     }
 
 }
