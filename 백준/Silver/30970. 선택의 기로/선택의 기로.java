@@ -9,15 +9,15 @@ public class Main {
         StringBuilder sb = new StringBuilder();
 
         int N = Integer.parseInt(br.readLine());
-        PriorityQueue<Jewel> priceQue = new PriorityQueue<>(new JewelPriceComparator());
-        PriorityQueue<Jewel> qualityQue = new PriorityQueue<>(new JewelQualityComparator());
+        PriorityQueue<Miniature> priceQue = new PriorityQueue<>(new MiniaturePriceComparator());
+        PriorityQueue<Miniature> qualityQue = new PriorityQueue<>(new MiniatureQualityComparator());
         while (N-- > 0) {
             StringTokenizer st = new StringTokenizer(br.readLine());
             int quality = Integer.parseInt(st.nextToken());
             int price = Integer.parseInt(st.nextToken());
-            Jewel jewel = new Jewel(quality, price);
-            priceQue.add(jewel);
-            qualityQue.add(jewel);
+            Miniature miniature = new Miniature(quality, price);
+            priceQue.add(miniature);
+            qualityQue.add(miniature);
         }
 
         appendAnswer(2, sb, qualityQue);
@@ -26,38 +26,33 @@ public class Main {
         System.out.println(sb);
     }
 
-    static void appendAnswer(int pollCount, StringBuilder sb, Queue<Jewel> que) {
+    static void appendAnswer(int pollCount, StringBuilder sb, Queue<Miniature> que) {
         for (int i = 0; i < pollCount; i++) {
-            Jewel jewel = que.poll();
+            Miniature jewel = que.poll();
             sb.append(jewel.quality).append(" ").append(jewel.price).append(" ");
         }
     }
 }
 
-class Jewel implements Comparable<Jewel> {
+class Miniature {
     int quality, price;
 
-    public Jewel(int quality, int price) {
+    public Miniature(int quality, int price) {
         this.quality = quality;
         this.price = price;
     }
-
-    @Override
-    public int compareTo(Jewel o) {
-        return this.price - o.price;
-    }
 }
 
-class JewelQualityComparator implements Comparator<Jewel> {
+class MiniatureQualityComparator implements Comparator<Miniature> {
     @Override
-    public int compare(Jewel o1, Jewel o2) {
+    public int compare(Miniature o1, Miniature o2) {
         return o1.quality != o2.quality ? o2.quality - o1.quality : o1.price - o2.price;
     }
 }
 
-class JewelPriceComparator implements Comparator<Jewel> {
+class MiniaturePriceComparator implements Comparator<Miniature> {
     @Override
-    public int compare(Jewel o1, Jewel o2) {
+    public int compare(Miniature o1, Miniature o2) {
         return o1.price != o2.price ?  o1.price - o2.price : o2.quality - o1.quality;
     }
 }
