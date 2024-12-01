@@ -1,7 +1,9 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -12,26 +14,35 @@ public class Main {
         int N = Integer.parseInt(st.nextToken());
         int K = Integer.parseInt(st.nextToken());
 
-        int[] positions = new int[N];
-        for (int i = 0; i < N; i++) {
-            positions[i] = Integer.parseInt(br.readLine());
+        List<Integer> positives = new ArrayList<>();
+        List<Integer> negatives = new ArrayList<>();
+
+        while (N-- > 0) {
+            int current = Integer.parseInt(br.readLine());
+            if (current >= 0) positives.add(current);
+            else negatives.add(-current);
         }
-        mergeSort(positions);
+
+        mergeSort(positives);
+        mergeSort(negatives);
 
         long distance = 0;
-        for (int i = positions.length - 1; i >= 0; i -= K) {
-            distance += 2L * Math.abs(positions[i]);
+        for (int i = positives.size() - 1; i >= 0; i -= K) {
+            distance += 2L * positives.get(i);
+        }
+        for (int i = negatives.size() - 1; i >= 0; i -= K) {
+            distance += 2L * negatives.get(i);
         }
 
         System.out.println(distance);
     }
 
-    static void mergeSort(int[] array) {
-        if (array.length == 1) return;
+    static void mergeSort(List<Integer> array) {
+        if (array.size() <= 1) return;
 
-        int mid = array.length / 2;
-        int[] left = Arrays.copyOfRange(array, 0, mid);
-        int[] right = Arrays.copyOfRange(array, mid, array.length);
+        int mid = array.size() / 2;
+        List<Integer> left = new ArrayList<>(array.subList(0, mid));
+        List<Integer> right = new ArrayList<>(array.subList(mid, array.size()));
 
         mergeSort(left);
         mergeSort(right);
@@ -39,21 +50,20 @@ public class Main {
         merge(array, left, right);
     }
 
-    static void merge(int[] array, int[] left, int[] right) {
+    static void merge(List<Integer> array, List<Integer> left, List<Integer> right) {
         int leftIndex = 0, rightIndex = 0, mainIndex = 0;
-        while (leftIndex < left.length && rightIndex < right.length) {
-            if (left[leftIndex] <= right[rightIndex]) {
-                array[mainIndex++] = left[leftIndex++];
+        while (leftIndex < left.size() && rightIndex < right.size()) {
+            if (left.get(leftIndex) < right.get(rightIndex)) {
+                array.set(mainIndex++, left.get(leftIndex++));
             } else {
-                array[mainIndex++] = right[rightIndex++];
+                array.set(mainIndex++, right.get(rightIndex++));
             }
         }
-        while (leftIndex < left.length) {
-            array[mainIndex++] = left[leftIndex++];
+        while (leftIndex < left.size()) {
+            array.set(mainIndex++, left.get(leftIndex++));
         }
-        while (rightIndex < right.length) {
-            array[mainIndex++] = right[rightIndex++];
+        while (rightIndex < right.size()) {
+            array.set(mainIndex++, right.get(rightIndex++));
         }
     }
-
 }
