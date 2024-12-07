@@ -9,10 +9,7 @@ public class Main {
         int count = 0;
         for (int t = 2; t < N; t += 2) {
             for (int y = 1; y < N; y++) {
-                int sum = t + y;
-                for (int x = y + 2; x < N; x++) {
-                    if (sum + x == N) count++;
-                }
+                if(N - t - y >=  y + 2) count++;
             }
         }
         System.out.println(count);
