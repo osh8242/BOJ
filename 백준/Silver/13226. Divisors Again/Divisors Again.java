@@ -14,7 +14,8 @@ public class Main {
             int max = 0;
 
             for (int value = L; value <= U; value++) {
-                max = Math.max(max, countDivisors(value));
+                int count = countDivisors(value);
+                if(count > max) max = count;
             }
 
             sb.append(max).append("\n");
