@@ -1,6 +1,4 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -13,22 +11,27 @@ public class Main {
             StringTokenizer st = new StringTokenizer(br.readLine());
             int L = Integer.parseInt(st.nextToken());
             int U = Integer.parseInt(st.nextToken());
-            int max = -1;
+            int max = 0;
 
             for (int value = L; value <= U; value++) {
-                int count = 0;
-                for (int divisor = 1; divisor <= Math.sqrt(value); divisor++) {
-                    if (value % divisor == 0) {
-                        count++;
-                        if (divisor * divisor != value) count++;
-                    }
-                }
-                if (max < count) max = count;
+                max = Math.max(max, countDivisors(value));
             }
 
             sb.append(max).append("\n");
         }
 
         System.out.println(sb);
+    }
+
+    private static int countDivisors(int n) {
+        int count = 0;
+        int sqrt = (int) Math.sqrt(n);
+        for (int i = 1; i <= sqrt; i++) {
+            if (n % i == 0) {
+                count++;
+                if (i != n / i) count++;
+            }
+        }
+        return count;
     }
 }
