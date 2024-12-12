@@ -1,33 +1,82 @@
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.InputStream;
 import java.util.Arrays;
-import java.util.StringTokenizer;
 
 public class Main {
+    static final int BUF_SIZE = 1 << 16;
+    static byte[] buffer = new byte[BUF_SIZE];
+    static int bId = 0, bSize = 0;
+    static InputStream in = System.in;
+
+    static byte read() throws IOException {
+        if (bId == bSize) {
+            bSize = in.read(buffer, 0, BUF_SIZE);
+            bId = 0;
+            if (bSize == -1) buffer[0] = -1;
+        }
+        return buffer[bId++];
+    }
+
+    static boolean isSpace(byte c) { return c <= ' '; }
+
+    static int nextInt() throws IOException {
+        int c = read();
+        while (isSpace((byte)c)) c = read();
+        boolean neg = c == '-';
+        if (neg) c = read();
+        int val = 0;
+        while (!isSpace((byte)c) && c != -1) {
+            val = val * 10 + (c - '0');
+            c = read();
+        }
+        return neg ? -val : val;
+    }
+
+    static double nextDouble() throws IOException {
+        int c = read();
+        while (isSpace((byte)c)) c = read();
+        boolean neg = c == '-';
+        if (neg) c = read();
+        double val = 0.0;
+        while ((c >= '0' && c <= '9')) {
+            val = val * 10 + (c - '0');
+            c = read();
+        }
+        if (c == '.') {
+            double fraction = 1;
+            c = read();
+            while (c >= '0' && c <= '9') {
+                fraction /= 10;
+                val += (c - '0') * fraction;
+                c = read();
+            }
+        }
+        if (neg) val = -val;
+        while (!isSpace((byte)c) && c != -1) c = read();
+        return val;
+    }
+
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
         while (true) {
-            StringTokenizer st = new StringTokenizer(br.readLine());
-            int nx = Integer.parseInt(st.nextToken());
-            int ny = Integer.parseInt(st.nextToken());
-            double w = Double.parseDouble(st.nextToken());
-            if (nx == 0 && ny == 0 && w == 0) break;
+            int nx = nextInt();
+            int ny = nextInt();
+            double w = nextDouble();
+            if (nx == 0 && ny == 0 && w == 0.0) break;
 
-            st = new StringTokenizer(br.readLine());
             double[] nxArr = new double[nx];
             for (int i = 0; i < nx; i++) {
-                nxArr[i] = Double.parseDouble(st.nextToken());
+                nxArr[i] = nextDouble();
             }
 
-            st = new StringTokenizer(br.readLine());
             double[] nyArr = new double[ny];
             for (int i = 0; i < ny; i++) {
-                nyArr[i] = Double.parseDouble(st.nextToken());
+                nyArr[i] = nextDouble();
             }
+
             Arrays.sort(nxArr);
             Arrays.sort(nyArr);
+
             boolean success = true;
             double current = 0;
             for (double xi : nxArr) {
@@ -39,8 +88,8 @@ public class Main {
             }
             if (current < 75.0) success = false;
 
-            current = 0;
             if (success) {
+                current = 0;
                 for (double yi : nyArr) {
                     if (2 * (yi - current) > w) {
                         success = false;
@@ -48,11 +97,11 @@ public class Main {
                     }
                     current = yi + w / 2.0;
                 }
+                if (current < 100.0) success = false;
             }
-            if (current < 100.0) success = false;
 
-            sb.append(success ? "YES" : "NO").append("\n");
+            sb.append(success ? "YES\n" : "NO\n");
         }
-        System.out.println(sb);
+        System.out.print(sb);
     }
 }
