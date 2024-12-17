@@ -13,6 +13,8 @@ public class Main {
         int cx = Integer.parseInt(st.nextToken());
         int cy = Integer.parseInt(st.nextToken());
         int cz = Integer.parseInt(st.nextToken());
-        System.out.println((cx - az) + " " + (cy / ay) + " " + (cz - ax));
+        StringBuilder sb = new StringBuilder();
+        sb.append(cx - az).append(" ").append(cy / ay).append(" ").append(cz - ax);
+        System.out.println(sb);
     }
 }
