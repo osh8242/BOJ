@@ -1,24 +1,23 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Comparator;
-import java.util.PriorityQueue;
+import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
-        PriorityQueue<Integer> pq = new PriorityQueue<>(Comparator.reverseOrder());
+        int[] tips = new int[N];
         for (int i = 0; i < N; i++) {
-            pq.offer(Integer.parseInt(br.readLine()));
+            tips[i] = Integer.parseInt(br.readLine());
         }
-
+        Arrays.sort(tips);
         long sum = 0;
         for (int rank = 1; rank <= N; rank++) {
-            int tip = pq.poll() - (rank - 1);
+            int tip = tips[N - rank] - (rank - 1);
             if (tip <= 0) break;
             sum += tip;
         }
-
         System.out.println(sum);
     }
+
 }
