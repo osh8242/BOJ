@@ -7,9 +7,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
-        long start = System.nanoTime();
         System.out.println(fibonacci(N) + " " + (N-2));
-        long end = System.nanoTime();
     }
 
     static int fibonacci(int n) {
