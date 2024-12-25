@@ -1,17 +1,13 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.*;
 import java.util.StringTokenizer;
 
 public class Main {
 
     static long[] crossRoads, leftRoads, rightRoads;
 
-
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         int N = Integer.parseInt(br.readLine());
         crossRoads = new long[N + 1];
         leftRoads = new long[N];
@@ -37,6 +33,7 @@ public class Main {
                 index = i;
             }
         }
-        System.out.println(index + " " + distance);
+        bw.write(index + " " + distance);
+        bw.flush();
     }
 }
