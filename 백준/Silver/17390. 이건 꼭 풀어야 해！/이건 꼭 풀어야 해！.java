@@ -1,67 +1,66 @@
 import java.io.*;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        int N = Integer.parseInt(st.nextToken());
-        int Q = Integer.parseInt(st.nextToken());
-        st = new StringTokenizer(br.readLine());
-        int[] nums = new int[N + 1];
-        for (int i = 1; i <= N; i++) {
-            nums[i] = Integer.parseInt(st.nextToken());
-        }
-        sort(nums);
-        for (int i = 1; i <= N; i++) {
-            nums[i] = nums[i - 1] + nums[i];
-        }
-        while (Q-- > 0) {
-            st = new StringTokenizer(br.readLine());
-            int L = Integer.parseInt(st.nextToken());
-            int R = Integer.parseInt(st.nextToken());
-            bw.write(String.valueOf(nums[R] - nums[L - 1]));
-            bw.newLine();
-        }
-        bw.flush();
-    }
+        FastReader fr = new FastReader();
+        int N = fr.nextInt();
+        int Q = fr.nextInt();
 
-    static void sort(int[] array) {
-        if (array.length < 2) return;
-        merge(array, 0, array.length - 1);
-    }
+        int[] freq = new int[1001];
+        for(int i = 0; i < N; i++) {
+            int num = fr.nextInt();
+            freq[num]++;
+        }
 
-    static void merge(int[] array, int start, int end) {
-        if (start >= end) return;
-        int mid = start + (end - start) / 2;
-        merge(array, start, mid);
-        merge(array, mid + 1, end);
-        mergeSort(array, start, mid, end);
-    }
-
-    static void mergeSort(int[] array, int left, int mid, int right) {
-        int n1 = mid - left + 1;
-        int n2 = right - mid;
-        int[] leftArray = new int[n1];
-        int[] rightArray = new int[n2];
-        System.arraycopy(array, left, leftArray, 0, n1);
-        System.arraycopy(array, mid + 1, rightArray, 0, n2);
-        int i = 0, j = 0;
-        int k = left;
-        while (i < n1 && j < n2) {
-            if (leftArray[i] <= rightArray[j]) {
-                array[k++] = leftArray[i++];
-            } else {
-                array[k++] = rightArray[j++];
+        int[] B = new int[N];
+        int idx = 0;
+        for(int num = 1; num <= 1000; num++) {
+            while(freq[num] > 0 && idx < N) {
+                B[idx++] = num;
+                freq[num]--;
             }
         }
-        while (i < n1) {
-            array[k++] = leftArray[i++];
+
+        long[] prefix = new long[N + 1];
+        for(int i = 1; i <= N; i++) {
+            prefix[i] = prefix[i-1] + B[i-1];
         }
-        while (j < n2) {
-            array[k++] = rightArray[j++];
+
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < Q; i++) {
+            int L = fr.nextInt();
+            int R = fr.nextInt();
+            long sum = prefix[R] - prefix[L-1];
+            sb.append(sum).append('\n');
         }
+
+        System.out.print(sb.toString());
     }
 
+    static class FastReader {
+        BufferedReader br;
+        StringTokenizer st;
+
+        public FastReader(){
+            br = new BufferedReader(new InputStreamReader(System.in));
+        }
+
+        String next(){
+            while(st == null || !st.hasMoreTokens()){
+                try{
+                    String line = br.readLine();
+                    if(line == null) return null;
+                    st = new StringTokenizer(line);
+                } catch(IOException e){
+                    throw new RuntimeException(e);
+                }
+            }
+            return st.nextToken();
+        }
+
+        int nextInt(){
+            return Integer.parseInt(next());
+        }
+    }
 }
