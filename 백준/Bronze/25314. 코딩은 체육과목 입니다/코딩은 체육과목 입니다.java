@@ -9,8 +9,8 @@ public class Main {
 		for (int i = 1 ; i <= n/4 ; i++) {
 			sb.append("long ");
 		}
-		sb.append("int\n");
-		System.out.println(sb.toString());
+		sb.append("int").append('\n');
+		System.out.println(sb);
 	}
 
 }
