@@ -14,23 +14,25 @@ public class Main {
             idx++;
         }
         idx++;
+        
         while (idx < len && buffer[idx] != '\n') {
             B = B * 10 + (buffer[idx] - '0');
             idx++;
         }
 
-        StringBuilder result = new StringBuilder();
+        char[] result = new char[64];
+        int pos = 64;
 
         while (N > 0) {
             long remainder = N % B;
             if (remainder >= 10) {
-                result.append((char) ('A' + (remainder - 10)));
+                result[--pos] = (char) ('A' + (remainder - 10));
             } else {
-                result.append((char) ('0' + remainder));
+                result[--pos] = (char) ('0' + remainder);
             }
             N /= B;
         }
 
-        System.out.write(result.reverse().toString().getBytes());
+        System.out.write(new String(result, pos, 64 - pos).getBytes());
     }
 }
