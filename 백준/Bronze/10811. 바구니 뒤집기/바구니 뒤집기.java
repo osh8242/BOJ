@@ -26,8 +26,8 @@ public class Main {
         }
         StringBuilder sb = new StringBuilder();
         for (int i = 1 ; i <= n ; i++ ){
-            sb.append(pocket[i]+" ");
+            sb.append(pocket[i]).append(" ");
         }
-        System.out.println(sb.toString());
+        System.out.println(sb);
     }
 }
