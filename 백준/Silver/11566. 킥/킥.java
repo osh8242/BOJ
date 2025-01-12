@@ -1,6 +1,8 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -19,17 +21,13 @@ public class Main {
         for (int i = 0; i < M; i++) {
             dream[i] = Integer.parseInt(st.nextToken());
         }
-        int minDepth = Integer.MAX_VALUE;
-        int maxDepth = Integer.MIN_VALUE;
-        boolean isPossible = false;
+        List<Integer> depths = new ArrayList<>();
         for (int depth = 0; N + depth * (N - 1) <= M; depth++) {
             int d = 0;
             while (M - d >= N + depth * (N - 1)) {
                 if (reality[0] == dream[d]) {
                     if (isDream(reality, dream, depth, d)) {
-                        minDepth = Math.min(minDepth, depth);
-                        maxDepth = Math.max(maxDepth, depth);
-                        isPossible = true;
+                        depths.add(depth);
                         break;
                     }
                 }
@@ -37,8 +35,8 @@ public class Main {
             }
         }
         StringBuilder sb = new StringBuilder();
-        if (isPossible) {
-            sb.append(minDepth).append(" ").append(maxDepth);
+        if (!depths.isEmpty()) {
+            sb.append(depths.get(0)).append(" ").append(depths.get(depths.size() - 1));
         } else {
             sb.append(-1);
         }
