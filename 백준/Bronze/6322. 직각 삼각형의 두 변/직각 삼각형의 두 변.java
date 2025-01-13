@@ -19,9 +19,9 @@ public class Main {
             int c = Integer.parseInt(st.nextToken());
 
             boolean isNormal = false;
-            if (a == -1 && (b < c)) isNormal = true;
+            if (c == -1) isNormal = true;
+            else if (a == -1 && (b < c)) isNormal = true;
             else if (b == -1 && (a < c)) isNormal = true;
-            else if (c == -1) isNormal = true;
 
             sb.append("Triangle #").append(index++).append("\n");
             if (isNormal) {
