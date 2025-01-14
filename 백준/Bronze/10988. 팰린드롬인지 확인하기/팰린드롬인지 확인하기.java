@@ -5,11 +5,13 @@ import java.io.InputStreamReader;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        char[] str = br.readLine().toCharArray();
-        for (int i = 0; i < str.length / 2; i++) {
-            if (str[i] != str[str.length - 1 - i]) {
+        String str = br.readLine();
+        int len = str.length();
+
+        for (int i = 0; i < len / 2; i++) {
+            if (str.charAt(i) != str.charAt(len - 1 - i)) {
                 System.out.println(0);
-                System.exit(0);
+                return;
             }
         }
         System.out.println(1);
