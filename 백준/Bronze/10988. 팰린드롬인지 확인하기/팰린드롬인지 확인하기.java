@@ -8,12 +8,14 @@ public class Main {
         String str = br.readLine();
         int len = str.length();
 
-        for (int i = 0; i < len / 2; i++) {
-            if (str.charAt(i) != str.charAt(len - 1 - i)) {
-                System.out.println(0);
+        int s = 0;
+        int e = len - 1;
+        while (s < e) {
+            if (str.charAt(s++) != str.charAt(e--)) {
+                System.out.println(0); // 회문이 아닌 경우
                 return;
             }
         }
-        System.out.println(1);
+        System.out.println(1); // 회문인 경우
     }
 }
