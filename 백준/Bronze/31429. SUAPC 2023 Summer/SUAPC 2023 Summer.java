@@ -18,7 +18,9 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();        
         int index = Integer.parseInt(br.readLine()) - 1;
-        System.out.println(records[index][0] + " " + records[index][1]);
+        sb.append(records[index][0]).append(" ").append(records[index][1]);
+        System.out.println(sb);
     }
 }
