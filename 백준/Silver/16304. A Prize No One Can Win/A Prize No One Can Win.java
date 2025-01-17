@@ -19,16 +19,16 @@ public class Main {
         } else {
             Arrays.sort(price);
             int i = binarySearch(price, X);
-            System.out.println(i + 1);
+            System.out.println(i);
         }
     }
 
     static int binarySearch(int[] price, int X) {
-        int low = 0;
-        int high = price.length - 2;
+        int low = 1;
+        int high = price.length - 1;
         while (low <= high) {
             int mid = (low + high) / 2;
-            if (price[mid] + price[mid+1] <= X) {
+            if (price[mid] + price[mid-1] <= X) {
                 low = mid + 1;
             } else {
                 high = mid - 1;
