@@ -11,7 +11,7 @@ class Main{
         int[] count = new int[26];
         for(int i = 0 ; i < 26 ; i++) count[i] = 0;
         for(char ch : spells) count[ch-97]++;
-        for(int i = 0 ; i < 26 ; i++) sb.append(count[i]+ " ");
+        for(int i = 0 ; i < 26 ; i++) sb.append(count[i]).append(" ");
         System.out.println(sb);
 
     }
