@@ -25,7 +25,7 @@ class Main {
             if (a > b) {
                 if (b == 1) {
                     l += (a - b);
-                    a = 1;
+                    break;
                 } else {
                     long div = a / b;
                     l += div;
@@ -34,7 +34,7 @@ class Main {
             } else {
                 if (a == 1) {
                     r += (b - a);
-                    b = 1;
+                    break;
                 } else {
                     long div = b / a;
                     r += div;
