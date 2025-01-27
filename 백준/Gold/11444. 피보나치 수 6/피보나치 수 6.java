@@ -6,6 +6,7 @@ import java.util.StringTokenizer;
 public class Main {
     static long[][] A = {{1, 1}, {1, 0}};
     static long N;
+    static final int MOD = 1000000007;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -29,7 +30,7 @@ public class Main {
             for (int j = 0; j < 2; j++) {
                 for (int k = 0; k < 2; k++) {
                     result[i][j] += X[i][k] * Y[k][j];
-                    result[i][j] %= 1000000007;
+                    result[i][j] %= MOD;
                 }
             }
         }
