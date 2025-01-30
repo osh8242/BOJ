@@ -8,8 +8,7 @@ public class Main {
         int N = Integer.parseInt(br.readLine());
         int M = Integer.parseInt(br.readLine());
 
-        int max = N + M;
-        if (max == 10) {
+        if (N + M == 10) {
             System.out.println("There is 1 way to get the sum 10.");
         } else {
             int count = Math.max(Math.min(9, Math.min(9, N) + Math.min(9, M) - 9), 0);
