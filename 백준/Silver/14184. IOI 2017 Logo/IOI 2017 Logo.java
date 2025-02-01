@@ -1,12 +1,9 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.*;
-
 public class Main {
-
     static final int MAX_POINT = 3;
     static final int POINT_STEP = 1;
-
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
@@ -14,11 +11,9 @@ public class Main {
             int N = Integer.parseInt(br.readLine());
             if (N == 0) break;
             Map<Integer, Logo> map = new HashMap<>();
-
-            while (N-- > 0) {
+            for (int i = 0; i < N; i++) {
                 StringTokenizer st = new StringTokenizer(br.readLine());
                 int d = Integer.parseInt(st.nextToken());
-
                 int order = 1;
                 while (d-- > 0) {
                     int index = Integer.parseInt(st.nextToken());
@@ -33,58 +28,48 @@ public class Main {
                     order++;
                 }
             }
-
-            Logo[] logos = map.values().toArray(new Logo[0]);
-            Arrays.sort(logos);
+            Collection<Logo> logos = map.values();
+            int maxScore = Integer.MIN_VALUE;
+            for (Logo l : logos) {
+                if (l.totalScore > maxScore) maxScore = l.totalScore;
+            }
+            List<Logo> cand = new ArrayList<>();
+            for (Logo l : logos) {
+                if (l.totalScore == maxScore) cand.add(l);
+            }
+            int maxFirst = Integer.MIN_VALUE;
+            for (Logo l : cand) {
+                if (l.votes[1] > maxFirst) maxFirst = l.votes[1];
+            }
+            List<Logo> cand2 = new ArrayList<>();
+            for (Logo l : cand) {
+                if (l.votes[1] == maxFirst) cand2.add(l);
+            }
+            int maxSecond = Integer.MIN_VALUE;
+            for (Logo l : cand2) {
+                if (l.votes[2] > maxSecond) maxSecond = l.votes[2];
+            }
             List<Logo> winners = new ArrayList<>();
-            winners.add(logos[0]);
-            for (int i = 1; i < logos.length; i++) {
-                if (logos[i].compareTo(logos[0]) == 0) {
-                    winners.add(logos[i]);
-                } else {
-                    break;
-                }
+            for (Logo l : cand2) {
+                if (l.votes[2] == maxSecond) winners.add(l);
             }
             winners.sort(Comparator.comparingInt(a -> a.index));
-            for (Logo winner : winners) {
-                sb.append(winner.index).append(" ");
-            }
+            for (Logo w : winners) sb.append(w.index).append(" ");
             sb.append("\n");
-
         }
         System.out.println(sb);
     }
-
     static int getPoint(int order) {
         return MAX_POINT - (order - 1) * POINT_STEP;
     }
-
-    static class Logo implements Comparable<Logo> {
+    static class Logo {
         int index;
         int totalScore;
         int[] votes;
-
         public Logo(int index) {
             this.index = index;
             this.totalScore = 0;
-            int capacity = MAX_POINT / POINT_STEP + 1;
-//            if (MAX_POINT % POINT_STEP != 0) capacity++;
-            // 1-base index
-            this.votes = new int[capacity + 1];
-        }
-
-        @Override
-        public int compareTo(Logo o) {
-            if (this.totalScore != o.totalScore) {
-                return Integer.compare(o.totalScore, this.totalScore);
-            } else if (this.votes[1] != o.votes[1]) {
-                return Integer.compare(o.votes[1], this.votes[1]);
-            } else if (this.votes[2] != o.votes[2]) {
-                return Integer.compare(o.votes[2], this.votes[2]);
-            } else {
-                return 0;
-            }
+            this.votes = new int[4];
         }
     }
-
 }
