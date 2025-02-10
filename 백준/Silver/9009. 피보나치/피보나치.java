@@ -54,7 +54,7 @@ public class Main {
     }
 
     static List<Integer> getListOfFibonacci(int n) {
-        List<Integer> list = new ArrayList<>();
+        List<Integer> list = new ArrayList<>(30);
         while (n > 0) {
             int f = findMaxFibonacciValue(n);
             list.add(f);
