@@ -5,13 +5,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-    static List<Integer> fibonacci = new ArrayList<>(100);
+    static int[] fibonacci = {
+            0, 1, 1, 2, 3,
+            5, 8, 13, 21, 34,
+            55, 89, 144, 233, 377,
+            610, 987, 1597, 2584, 4181,
+            6765, 10946, 17711, 28657, 46368,
+            75025, 121393, 196418, 317811, 514229,
+            832040, 1346269, 2178309, 3524578, 5702887,
+            9227465, 14930352, 24157817, 39088169, 63245986,
+            102334155, 165580141, 267914296, 433494437, 701408733
+    };
+
     static StringBuilder sb = new StringBuilder();
 
-    static {
-        fibonacci.add(0);
-        fibonacci.add(1);
-    }
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -19,38 +26,30 @@ public class Main {
         while (T-- > 0) {
             int n = Integer.parseInt(br.readLine());
             if (n == 1) {
-                sb.append(fibonacci.get(1)).append("\n");
+                sb.append(fibonacci[1]).append("\n");
                 continue;
             }
 
-            addFibonacci(n);
             appendListOfFibonacci(getListOfFibonacci(n));
         }
         System.out.println(sb);
     }
 
-    static void addFibonacci(int n) {
-        while (fibonacci.get(fibonacci.size() - 1) <= n) {
-            int size = fibonacci.size();
-            fibonacci.add(fibonacci.get(size - 1) + fibonacci.get(size - 2));
-        }
-    }
-
     static int findMaxFibonacciValue(int n) {
         int low = 1;
-        int high = fibonacci.size() - 1;
+        int high = fibonacci.length - 1;
 
         while (low <= high) {
             int mid = low + (high - low) / 2;
-            if (n == fibonacci.get(mid)) {
-                return fibonacci.get(mid);
-            } else if (n < fibonacci.get(mid)) {
+            if (n == fibonacci[mid]) {
+                return fibonacci[mid];
+            } else if (n < fibonacci[mid]) {
                 high = mid - 1;
             } else {
                 low = mid + 1;
             }
         }
-        return fibonacci.get(high);
+        return fibonacci[high];
     }
 
     static List<Integer> getListOfFibonacci(int n) {
