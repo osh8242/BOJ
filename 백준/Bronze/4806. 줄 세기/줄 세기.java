@@ -5,9 +5,18 @@ import java.io.InputStreamReader;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String input;
         int count = 0;
-        while ((input = br.readLine()) != null) {
+        int c;
+        boolean lastWasNewLine = true;
+        while ((c = br.read()) != -1) {
+            if (c == '\n') {
+                count++;
+                lastWasNewLine = true;
+            } else {
+                lastWasNewLine = false;
+            }
+        }
+        if (!lastWasNewLine) {
             count++;
         }
         System.out.println(count);
