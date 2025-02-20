@@ -4,26 +4,22 @@ class Solution {
     public int solution(int[] scoville, int K) {
         int count = 0;
         
-        Queue<Integer> que = new PriorityQueue<>();
-        for(int k : scoville) {
-            que.offer(k);
+        // 우선순위 큐 생성
+        PriorityQueue<Integer> que = new PriorityQueue<>();
+        for (int s : scoville) {
+            que.offer(s);
         }
-        
-        int sum = que.peek();
-        if(sum < K) {
-            count = 1;
-            sum = que.poll() + que.poll() * 2;
-            que.offer(sum);
-        }
-        
+
+        // 섞는 작업 반복
         while (que.size() > 1 && que.peek() < K) {
-            int a = que.poll();
-            int b = que.poll();
-            sum = a + b * 2;
-            que.offer(sum);            
+            int first = que.poll();
+            int second = que.poll();
+            int mixed = first + second * 2;
+            que.offer(mixed);
             count++;
         }
-        
-        return sum >= K ? count : -1;
+
+        // 모든 음식의 스코빌 지수가 K 이상인지 확인
+        return que.peek() >= K ? count : -1;
     }
 }
