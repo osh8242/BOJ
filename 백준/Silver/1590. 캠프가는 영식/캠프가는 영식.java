@@ -18,12 +18,12 @@ public class Main {
             int I = Integer.parseInt(st.nextToken());
             int C = Integer.parseInt(st.nextToken());
 
-            getTime(T, S, I, C);
+            updateMintTime(T, S, I, C);
         }
         System.out.println(min == Integer.MAX_VALUE ? -1 : min);
     }
 
-    static void getTime(int T, int S, int I, int C) {
+    static void updateMintTime(int T, int S, int I, int C) {
         if (inBound(T, S, I, C)) {
             if (T <= S) min = Math.min(min, S - T);
             else {
